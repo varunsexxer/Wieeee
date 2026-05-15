@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Garima Ji! 🌸</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #fff0f3;
+            --envelope-color: linear-gradient(135deg, #ffb3c1, #ff85a1);
+            --envelope-dark: #ff4d6d;
+            --envelope-inside: #ffe5ec;
+            --letter-color: #fffdf9;
+            --text-color: #5c3d48;
+            --butter-smooth: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden; 
+            position: relative;
+            padding: 20px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: rgba(255, 133, 161, 0.25);
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Container for the envelope */
+        .envelope-wrapper {
+            position: relative;
+            width: 400px;
+            height: 280px;
+            margin-top: 180px; 
+            margin-bottom: 20px;
+            perspective: 2000px; 
+            cursor: pointer;
+            z-index: 2;
+            transform: translateZ(0); 
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: var(--envelope-color);
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            box-shadow: 0 30px 60px rgba(255, 77, 109, 0.18);
+            transform-style: preserve-3d;
+        }
+
+        .envelope::before {
+            content: "";
+            position: absolute;
+            z-index: 5;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 145px solid var(--envelope-inside);
+            bottom: 0;
+            left: 0;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+        }
+
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 6;
+            border-left: 200px solid rgba(255, 179, 193, 0.75);
+            border-right: 200px solid rgba(255, 179, 193, 0.75);
+            border-bottom: 145px solid transparent;
+            bottom: 0;
+            left: 0;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-top: 146px solid var(--envelope-dark);
+            transform-origin: top;
+            transition: var(--butter-smooth);
+            z-index: 7;
+            backface-visibility: hidden;
+            filter: drop-shadow(0 5px 6px rgba(0,0,0,0.06));
+        }
+
+        /* The Letter Inside */
+        .letter {
+            position: absolute;
+            bottom: 12px;
+            left: 15px;
+            width: 370px;
+            height: 240px; 
+            background: var(--letter-color);
+            border-radius: 16px;
+            padding: 40px 30px 30px 35px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.02);
+            transition: var(--butter-smooth);
+            z-index: 3;
+            overflow-y: auto;
+            border-left: 5px solid #ff85a1;
+            opacity: 0; 
+            transform: scale(0.92) translateY(30px); 
+            will-change: transform, opacity;
+        }
+
+        /* Letter Cursive Text Styling */
+        .letter-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 23px;
+            line-height: 1.65;
+            color: var(--text-color);
+            white-space: pre-line;
+            font-weight: 700;
+        }
+
+        .letter::-webkit-scrollbar {
+            width: 5px;
+        }
+        .letter::-webkit-scrollbar-thumb {
+            background: #ffb3c1;
+            border-radius: 10px;
+        }
+
+        /* Interactive Navigation Buttons */
+        .buttons {
+            display: flex;
+            gap: 24px;
+            margin-top: 40px;
+            z-index: 10;
+        }
+
+        button {
+            padding: 15px 42px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            letter-spacing: 0.5px;
+        }
+
+        .open-btn {
+            background: linear-gradient(135deg, #ff758f, #ff4d6d);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.3);
+        }
+
+        .close-btn {
+            background-color: #ffffff;
+            color: var(--envelope-dark);
+            border: 2px solid #ff758f;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        button:hover {
+            transform: translateY(-6px) scale(1.03);
+        }
+        
+        .open-btn:hover {
+            box-shadow: 0 18px 35px rgba(255, 77, 109, 0.45);
+        }
+
+        .close-btn:hover {
+            background-color: #fff0f3;
+        }
+
+        button:active {
+            transform: translateY(-1px) scale(0.97);
+        }
+
+        /* LIVE TRANSFORM SEQUENCE */
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 2; 
+        }
+
+        .envelope-wrapper.open .letter {
+            transform: translateY(-260px) scale(1); 
+            height: 440px; 
+            z-index: 8; 
+            opacity: 1; 
+            box-shadow: 0 30px 60px rgba(255, 115, 143, 0.22);
+        }
+
+        /* Mobile Screen Scaler Core */
+        @media (max-width: 430px) {
+            .envelope-wrapper {
+                width: 330px;
+                height: 240px;
+                margin-top: 200px;
+            }
+            .envelope::before, .envelope::after {
+                border-left-width: 165px;
+                border-right-width: 165px;
+            }
+            .flap {
+                border-left-width: 165px;
+                border-right-width: 165px;
+                border-top-width: 125px;
+            }
+            .letter {
+                width: 300px;
+                left: 15px;
+            }
+            .envelope-wrapper.open .letter {
+                transform: translateY(-240px);
+                height: 400px;
+            }
+        }
+        
+        /* Full-screen Floating Blossoming Hearts Container */
+        .global-heart {
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            background-color: var(--color);
+            transform: rotate(-45deg) scale(0);
+            border-radius: 28%;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+        
+        .global-heart::before,
+        .global-heart::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: inherit;
+            border-radius: 50%;
+        }
+        
+        .global-heart::before {
+            top: -50%;
+            left: 0;
+        }
+        
+        .global-heart::after {
+            top: 0;
+            left: 50%;
+        }
+        
+        @keyframes globalFloatUp {
+            0% {
+                transform: translate(0, 0) rotate(-45deg) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: var(--opacity);
+                transform: translate(var(--mid-x), var(--mid-y)) rotate(-45deg) scale(var(--target-scale));
+            }
+            100% {
+                transform: translate(var(--drift-x), var(--drift-y)) rotate(var(--drift-r)) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope-wrapper" id="envelopeWrapper" onclick="toggleEnvelope()">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="letter" id="birthdayLetter" onclick="event.stopPropagation();">
+                <div class="letter-text">Happy Birthdayyy, Gawrima jii 🥹🤍🌷.
+
+First of all, happiesttt birthday to the preetiest cutu everrr 😭💗🫶🏻. I genuinely hope your day is filled with the warmest hugs, happiest smiles, good vibes, sweet little surprises, and memories that make you smile even later on 🥹🌷✨. And I truly hope this whole year turns out super kind to you — full of peace, laughter, growth, pretty moments, and all the tiny little things that secretly make your heart happy 🌸💫🤍.
+
+Yk… it still feels kinda funny how we met so coincidentally online, but somehow, in no time, you became one of my favorite people to talk to 😭🤍. I genuinely feel really happy spending time with you and just being around you — even the smallest conversations somehow feel niceee 🥹🫶🏻. You have such a sweet and comforting vibe, baibee 🌷💗. And muhehehe 😭… I do like teasing uh and ragebaiting uh a lot, shotu bcche 🤏🏻🥹, but mah intentions are neverrr to hurt uhh, okayyy? 🤍🌷 So yea… sada mere rho aur hamesha khush rhooo 😭🫶🏻✨ tathhasthuuuu 🥰🌷💫
+
+I really hope life gives you endless reasons to smile this year, bbygurl 🥹💗. May every sad day slowly get replaced with better ones, may happiness find you in the smallest moments, and may good things always somehow find their way to you 🌸🤍✨. And pleaseee keep smiling the way you do 😭💫… it genuinely suits you a little too well, cutu 🌷💗.
+
+Once againn 😭🫶🏻… mere pyaale se, shotu se, cutu se baibee ko happiesttt birthdayyyy 🥹💗🌷✨. Hope your whole day shines as bright as your smileee 🌷💫🤍🫶🏻💗</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="open-btn" onclick="event.stopPropagation(); openEnvelope();">Open ✉️</button>
+        <button class="close-btn" onclick="event.stopPropagation(); closeEnvelope();">Close 🔒</button>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelopeWrapper');
+        const letter = document.getElementById('birthdayLetter');
+        
+        function fillScreenWithHearts(count) {
+            const colors = ['#ff85a1', '#ffccd5', '#ff4d6d', '#ff758f', '#fff0f3', '#ffb3c1'];
+            
+            for (let i = 0; i < count; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('global-heart');
+                
+                // Hearts generate along the entire bottom of the screen window edge
+                const ranX = Math.random() * window.innerWidth;
+                const startY = window.innerHeight + 20;
+                heart.style.left = `${ranX}px`;
+                heart.style.top = `${startY}px`;
+                
+                // Varied size setup
+                const size = 14 + Math.random() * 26;
+                heart.style.setProperty('--size', `${size}px`);
+                
+                const chosenColor = colors[Math.floor(Math.random() * colors.length)];
+                heart.style.backgroundColor = chosenColor;
+                heart.style.boxShadow = `0 0 15px ${chosenColor}, 0 0 30px rgba(255,133,161,0.4)`;
+                
+                // Custom fluid drift mechanics shooting upwards from bottom edge
+                const driftX = (Math.random() - 0.5) * window.innerWidth * 0.7;
+                const driftY = -(window.innerHeight * 1.3) - (Math.random() * 200); 
+                const midX = driftX * 0.3;
+                const midY = driftY * 0.2;
+                const driftR = -45 + (Math.random() - 0.5) * 360;
+                const maxOpacity = 0.6 + Math.random() * 0.4;
+                const targetScale = 0.8 + Math.random() * 0.8;
+                
+                heart.style.setProperty('--mid-x', `${midX}px`);
+                heart.style.setProperty('--mid-y', `${midY}px`);
+                heart.style.setProperty('--drift-x', `${driftX}px`);
+                heart.style.setProperty('--drift-y', `${driftY}px`);
+                heart.style.setProperty('--drift-r', `${driftR}deg`);
+                heart.style.setProperty('--opacity', maxOpacity);
+                heart.style.setProperty('--target-scale', targetScale);
+                
+                // Seamless cinematic wave delays
+                const duration = 2.2 + Math.random() * 2.5;
+                const delay = Math.random() * 0.4;
+                heart.style.animation = `globalFloatUp ${duration}s cubic-bezier(0.1, 0.8, 0.25, 1) ${delay}s forwards`;
+                
+                document.body.appendChild(heart);
+                
+                heart.addEventListener('animationend', () => {
+                    heart.remove();
+                });
+            }
+        }
+
+        function toggleEnvelope() {
+            if (envelope.classList.contains('open')) {
+                closeEnvelope();
+            } else {
+                openEnvelope();
+            }
+        }
+
+        function openEnvelope() {
+            // Triggers a massive wave of 120 hearts every single time it is clicked
+            fillScreenWithHearts(120); 
+            if (!envelope.classList.contains('open')) {
+                envelope.classList.add('open');
+            }
+        }
+
+        function closeEnvelope() {
+            if (envelope.classList.contains('open')) {
+                envelope.classList.remove('open');
+                fillScreenWithHearts(40); 
+                
+                setTimeout(() => {
+                    letter.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 200);
+            }
+        }
+    </script>
+
+</body>
+</html>
